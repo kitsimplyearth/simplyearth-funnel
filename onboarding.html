@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Simply Earth | Set Up Your Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Brandon Text', 'Nunito', sans-serif; }
+    h1,h2,h3,h4 { font-family: 'Brandon Grotesque', 'Nunito', sans-serif; font-weight: 900; }
+
+    input:focus {
+      outline: none;
+      border-color: #E67272;
+      box-shadow: 0 0 0 3px rgba(230,114,114,.15);
+    }
+
+    /* Step visibility */
+    .step { display: none; }
+    .step.active { display: block; }
+
+    /* Progress step styles */
+    .prog-step { display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .prog-circle {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 13px;
+      border: 2px solid #D1D5DB;
+      color: #9CA3AF; background: white;
+      transition: all .3s ease;
+    }
+    .prog-circle.done   { background: #2D6A6A; border-color: #2D6A6A; color: white; }
+    .prog-circle.active { background: #2D6A6A; border-color: #2D6A6A; color: white; }
+    .prog-label { font-size: 11px; color: #9CA3AF; font-weight: 700; white-space: nowrap; }
+    .prog-label.active { color: #2D6A6A; }
+    .prog-label.done   { color: #2D6A6A; }
+
+    .prog-line { flex: 1; height: 2px; background: #D1D5DB; margin-top: -18px; transition: background .3s; }
+    .prog-line.done { background: #2D6A6A; }
+
+    /* Modal overlay */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,.45);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100; padding: 16px;
+    }
+    .modal-overlay.hidden { display: none; }
+
+    /* Modal card */
+    .modal-card {
+      background: #FDF8F4; border-radius: 20px;
+      max-width: 420px; width: 100%;
+      box-shadow: 0 24px 64px rgba(0,0,0,.2);
+      overflow: hidden;
+    }
+
+    /* Oil card */
+    .oil-card {
+      border: 1px solid #E5E7EB; border-radius: 12px; padding: 12px;
+      display: flex; align-items: center; gap: 12px;
+      transition: border-color .2s;
+    }
+    .oil-card:hover { border-color: #E67272; }
+
+    /* Addon card */
+    .addon-card {
+      border: 1px solid #E5E7EB; border-radius: 12px;
+      overflow: hidden; transition: border-color .2s, box-shadow .2s;
+    }
+    .addon-card.added { border-color: #5E9F64; }
+
+    /* Pulse btn */
+    .pulse-btn { animation: pulse-shadow 2.2s ease-in-out infinite; }
+    @keyframes pulse-shadow {
+      0%,100% { box-shadow: 0 0 0 0 rgba(230,114,114,.45); }
+      50%      { box-shadow: 0 0 0 14px rgba(230,114,114,0); }
+    }
+
+    /* Input toggle (password) */
+    .pw-wrap { position: relative; }
+    .pw-wrap input { padding-right: 44px; }
+    .pw-toggle {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      cursor: pointer; color: #9CA3AF;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- ===================================================
+       SUCCESS BANNER
+  =================================================== -->
+  <div class="bg-[#8FB8AD] text-white text-center py-2.5 text-sm font-semibold">
+    🎉 You've Successfully Subscribed!
+  </div>
+
+  <!-- ===================================================
+       HEADER + PROGRESS BAR
+  =================================================== -->
+  <header class="bg-white border-b border-gray-100 py-4 px-6">
+    <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-4">
+      <a href="https://simplyearth.com" class="flex-shrink-0">
+        <img src="https://simplyearth.com/images/simplyearth.svg" alt="Simply Earth" class="h-7" />
+      </a>
+      <!-- Progress -->
+      <div class="flex-1 flex items-start gap-1 w-full max-w-lg mx-auto" id="progress-bar">
+        <div class="prog-step">
+          <div class="prog-circle active" id="pc-1">1</div>
+          <span class="prog-label active" id="pl-1">Account</span>
+        </div>
+        <div class="prog-line" id="pline-1"></div>
+        <div class="prog-step">
+          <div class="prog-circle" id="pc-2">2</div>
+          <span class="prog-label" id="pl-2">Customize</span>
+        </div>
+        <div class="prog-line" id="pline-2"></div>
+        <div class="prog-step">
+          <div class="prog-circle" id="pc-3">3</div>
+          <span class="prog-label" id="pl-3">Add-Ons</span>
+        </div>
+        <div class="prog-line" id="pline-3"></div>
+        <div class="prog-step">
+          <div class="prog-circle" id="pc-4">4</div>
+          <span class="prog-label" id="pl-4">Join Group</span>
+        </div>
+        <div class="prog-line" id="pline-4"></div>
+        <div class="prog-step">
+          <div class="prog-circle" id="pc-5">5</div>
+          <span class="prog-label" id="pl-5">Bonus</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================
+       STEP CONTENT
+  =================================================== -->
+  <main class="max-w-2xl mx-auto px-6 py-10">
+
+    <!-- ====== STEP 1: ACCOUNT ====== -->
+    <div class="step active" id="step-1">
+      <h2 class="text-2xl font-black text-gray-900 mb-2">Set Up Your Password</h2>
+      <p class="text-gray-500 mb-8">Create a secure password to manage your account, add products, exchange oils, and pause or cancel your subscription at any time.</p>
+
+      <div class="bg-gray-50 rounded-xl px-5 py-3 mb-6 flex gap-6 text-sm text-gray-600">
+        <div><span class="font-semibold text-gray-400">Name:</span> <span id="disp-name">Jane Doe</span></div>
+        <div><span class="font-semibold text-gray-400">Email:</span> <span id="disp-email">jane@example.com</span></div>
+      </div>
+
+      <div class="space-y-5">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Password *</label>
+          <div class="pw-wrap">
+            <input type="password" id="pw1" placeholder="Create a password" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+            <button class="pw-toggle" onclick="togglePw('pw1', this)">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 4.411m0 0L21 21"/></svg>
+            </button>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Confirm Password *</label>
+          <div class="pw-wrap">
+            <input type="password" id="pw2" placeholder="Re-enter your password" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+            <button class="pw-toggle" onclick="togglePw('pw2', this)">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 6.943 7.523 4 12 4c4.478 0 8.268 2.943 9.542 7-1.274 5.057-5.064 8-9.542 8-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <button onclick="goStep(2)" class="w-full bg-[#E67272] hover:bg-[#d45f5f] text-white font-black text-base py-4 rounded-full transition-colors shadow-md">
+          Create Your Password →
+        </button>
+      </div>
+    </div>
+
+    <!-- ====== STEP 2: CUSTOMIZE BOX ====== -->
+    <div class="step" id="step-2">
+      <h2 class="text-2xl font-black text-gray-900 mb-1">Customize Your Box</h2>
+      <p class="text-gray-500 text-sm mb-6">This Month's Box: <strong>DIY Hair Glam Mastery</strong></p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        <!-- Oils (left col) -->
+        <div class="space-y-3">
+          <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Your Oils</p>
+
+          <div class="oil-card">
+            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-lg flex-shrink-0">🌿</div>
+            <div class="flex-1">
+              <p class="font-semibold text-sm text-gray-800">Cedarwood Himalayan Essential Oil</p>
+              <p class="text-xs text-gray-400">June's Recipe Box</p>
+            </div>
+            <div class="text-right flex-shrink-0">
+              <p class="text-sm font-bold text-[#E67272] mb-1">$2.00</p>
+              <button onclick="openExchange()" class="text-xs border border-red-300 text-red-400 hover:bg-red-50 px-3 py-1 rounded-full transition-colors">Cancel</button>
+            </div>
+          </div>
+
+          <div class="oil-card">
+            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-lg flex-shrink-0">🌸</div>
+            <div class="flex-1">
+              <p class="font-semibold text-sm text-gray-800">Amyris Essential Oil</p>
+              <p class="text-xs text-gray-400">June's Recipe Box</p>
+            </div>
+            <button onclick="openExchange()" class="text-xs bg-[#2D6A6A] text-white hover:bg-[#1f4f4f] px-3 py-1.5 rounded-full transition-colors flex-shrink-0">Exchange</button>
+          </div>
+
+          <div class="oil-card">
+            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-lg flex-shrink-0">🍋</div>
+            <div class="flex-1">
+              <p class="font-semibold text-sm text-gray-800">Amyris Essential Oil</p>
+              <p class="text-xs text-gray-400">June's Recipe Box</p>
+            </div>
+            <button onclick="openExchange()" class="text-xs bg-[#2D6A6A] text-white hover:bg-[#1f4f4f] px-3 py-1.5 rounded-full transition-colors flex-shrink-0">Exchange</button>
+          </div>
+
+          <div class="oil-card">
+            <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-lg flex-shrink-0">🌲</div>
+            <div class="flex-1">
+              <p class="font-semibold text-sm text-gray-800">Amyris Essential Oil</p>
+              <p class="text-xs text-gray-400">June's Recipe Box</p>
+            </div>
+            <button onclick="openExchange()" class="text-xs bg-[#2D6A6A] text-white hover:bg-[#1f4f4f] px-3 py-1.5 rounded-full transition-colors flex-shrink-0">Exchange</button>
+          </div>
+        </div>
+
+        <!-- Other items (right col) -->
+        <div class="space-y-3">
+          <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Included Items</p>
+
+          <div class="oil-card bg-gray-50">
+            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-lg flex-shrink-0 border border-gray-200">🧼</div>
+            <div>
+              <p class="font-semibold text-sm text-gray-800">Glycerin Melt &amp; Pour Soap Base</p>
+              <p class="text-xs text-gray-400">Weight: 2.5 oz</p>
+            </div>
+          </div>
+
+          <div class="oil-card bg-gray-50">
+            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-lg flex-shrink-0 border border-gray-200">🍯</div>
+            <div>
+              <p class="font-semibold text-sm text-gray-800">Hand Soap Tablet</p>
+            </div>
+          </div>
+
+          <div class="oil-card bg-gray-50">
+            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-lg flex-shrink-0 border border-gray-200">⭕</div>
+            <div>
+              <p class="font-semibold text-sm text-gray-800">Round Soap Mold</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <button onclick="goStep(3)" class="flex-1 bg-[#E67272] hover:bg-[#d45f5f] text-white font-black py-3.5 rounded-full transition-colors shadow-md">
+          Continue →
+        </button>
+      </div>
+    </div>
+
+    <!-- ====== STEP 3: ADD-ONS ====== -->
+    <div class="step" id="step-3">
+      <h2 class="text-2xl font-black text-gray-900 mb-1">Add-Ons to Your Box</h2>
+      <p class="text-gray-500 text-sm mb-6">Get <strong>10% off</strong> and enjoy <strong>FREE SHIPPING</strong> on all add-on items with your monthly box.</p>
+
+      <!-- Search bar -->
+      <div class="relative mb-6">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" placeholder="Search add-ons..." class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-3 text-sm" />
+      </div>
+
+      <!-- Add-on grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8" id="addon-grid">
+        <!-- Items generated by JS -->
+      </div>
+
+      <div class="flex gap-3 border-t border-gray-100 pt-6">
+        <button onclick="goStep(4)" class="flex-none border-2 border-gray-300 text-gray-500 hover:border-gray-400 font-bold py-3.5 px-6 rounded-full transition-colors text-sm">
+          Skip Step
+        </button>
+        <button onclick="goStep(4)" class="flex-1 bg-[#E67272] hover:bg-[#d45f5f] text-white font-black py-3.5 rounded-full transition-colors shadow-md">
+          Continue →
+        </button>
+      </div>
+    </div>
+
+    <!-- ====== STEP 4: JOIN FACEBOOK GROUP ====== -->
+    <div class="step" id="step-4">
+      <div class="text-center max-w-md mx-auto">
+        <div class="text-6xl mb-6">👥</div>
+        <h2 class="text-2xl font-black text-gray-900 mb-3">Join Our Exclusive Community!</h2>
+        <p class="text-gray-500 mb-6 leading-relaxed">
+          Connect with 10,000+ DIY enthusiasts in our Simply Earth Facebook Group! Share recipes, get tips, watch live demos from Katie, and be part of a community that's passionate about natural living.
+        </p>
+
+        <div class="bg-[#FDF8F4] rounded-2xl p-6 mb-8 text-left space-y-3">
+          <div class="flex items-center gap-3 text-sm text-gray-600">
+            <span class="text-xl">📹</span>
+            <span>Live recipe demos &amp; Q&amp;As with Simply Earth founders</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm text-gray-600">
+            <span class="text-xl">💡</span>
+            <span>Tips, hacks, and inspiration from our community</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm text-gray-600">
+            <span class="text-xl">🎁</span>
+            <span>Exclusive giveaways and member-only offers</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm text-gray-600">
+            <span class="text-xl">🤝</span>
+            <span>Support from 10,000+ natural living families</span>
+          </div>
+        </div>
+
+        <a href="https://www.facebook.com/share/g/1KFEzj21tW/" target="_blank"
+           class="block w-full bg-[#1877F2] hover:bg-[#1565D8] text-white font-black text-base py-4 rounded-full transition-colors shadow-md mb-3">
+          Join the Facebook Group →
+        </a>
+        <button onclick="goStep(5)" class="w-full border-2 border-gray-300 text-gray-500 hover:border-gray-400 font-bold py-3.5 rounded-full transition-colors text-sm">
+          Skip Step
+        </button>
+
+        <!-- After joining, continue -->
+        <button onclick="goStep(5)" class="block w-full text-center text-[#E67272] text-sm mt-4 hover:underline">
+          I've joined! Continue →
+        </button>
+      </div>
+    </div>
+
+    <!-- ====== STEP 5: BONUS ====== -->
+    <div class="step" id="step-5">
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+        <!-- Left: Copy -->
+        <div class="flex-1">
+          <div class="inline-block bg-[#DDBC59] text-white text-xs font-black px-3 py-1 rounded-full mb-4 uppercase tracking-wide">
+            🎁 You've Got a Bonus!
+          </div>
+          <h2 class="text-2xl font-black text-gray-900 mb-3">Your Essential Oil Hero Course is Waiting!</h2>
+          <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+            We've added the <strong>Essential Oil Hero Course</strong> (<span class="text-[#DDBC59] font-bold">$480 value</span>) for <span class="text-[#E67272] font-bold">FREE</span> to your Monthly Recipe Box! This comprehensive guide includes everything you need to know about using essential oils with confidence and clarity.
+          </p>
+
+          <div class="space-y-3 mb-8">
+            <div class="flex items-center gap-3 text-sm text-gray-600">
+              <span class="text-xl">🏆</span>
+              <span>12-month learning journey to master essential oils</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm text-gray-600">
+              <span class="text-xl">📚</span>
+              <span>In-depth modules on every oil category</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm text-gray-600">
+              <span class="text-xl">🎯</span>
+              <span>Confidence-building missions and challenges</span>
+            </div>
+            <div class="flex items-center gap-3 text-sm text-gray-600">
+              <span class="text-xl">🌿</span>
+              <span>Safety, blending, and therapeutic use guides</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <button onclick="openHeroCourse()"
+                    class="bg-[#E67272] hover:bg-[#d45f5f] text-white font-black px-6 py-3.5 rounded-full transition-colors shadow-md pulse-btn text-sm">
+              Access Hero Course →
+            </button>
+            <a href="thank-you.html"
+               class="border-2 border-gray-300 text-gray-500 hover:border-gray-400 font-bold px-6 py-3.5 rounded-full transition-colors text-sm">
+              Skip Step
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Hero Journey image placeholder -->
+        <div class="flex-shrink-0 w-56 md:w-64">
+          <div class="bg-gradient-to-br from-[#70A8BE] to-[#5E9F64] rounded-2xl p-6 text-white text-center shadow-xl">
+            <div class="text-4xl mb-3">🗺️</div>
+            <h3 class="font-black text-lg mb-2" style="font-family:'Brandon Grotesque','Nunito',sans-serif;">Your Essential Oil Hero Journey</h3>
+            <p class="text-white/80 text-xs">12 Month Learning Journey To Master Essential Oils</p>
+            <div class="mt-4 grid grid-cols-3 gap-2">
+              <div class="bg-white/20 rounded-full p-1.5 text-xs">Soap 🧼</div>
+              <div class="bg-white/20 rounded-full p-1.5 text-xs">Skin 💆</div>
+              <div class="bg-white/20 rounded-full p-1.5 text-xs">Hair 💇</div>
+              <div class="bg-white/20 rounded-full p-1.5 text-xs">Clean 🧹</div>
+              <div class="bg-white/20 rounded-full p-1.5 text-xs">Candle 🕯️</div>
+              <div class="bg-white/20 rounded-full p-1.5 text-xs">Bath 🛁</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===================================================
+       KATIE WELCOME MODAL
+  =================================================== -->
+  <div class="modal-overlay" id="welcome-modal">
+    <div class="modal-card max-w-sm w-full">
+      <!-- Modal header -->
+      <div class="flex items-center gap-3 px-5 pt-5 pb-3 border-b border-gray-100">
+        <div class="w-9 h-9 rounded-full bg-[#E67272] flex items-center justify-center text-white text-sm font-black">SE</div>
+        <span class="font-bold text-gray-800">Simply Earth</span>
+        <button onclick="closeWelcome()" class="ml-auto text-gray-400 hover:text-gray-600 text-lg leading-none">✕</button>
+      </div>
+      <!-- Modal title -->
+      <div class="bg-[#FDF8F4] px-5 py-3 text-center">
+        <p class="font-black text-gray-900 text-base">🎉 Welcome to Your Recipe Box Subscription</p>
+      </div>
+      <!-- Video placeholder -->
+      <div class="bg-[#FDF8F4] px-5 py-4">
+        <div class="rounded-2xl overflow-hidden bg-gray-200 aspect-video flex items-center justify-center relative">
+          <!-- Placeholder for Katie's video -->
+          <div class="absolute inset-0 bg-gradient-to-br from-[#DDBC59]/20 to-[#E67272]/20 flex flex-col items-center justify-center text-center p-4">
+            <div class="w-16 h-16 bg-[#E67272] rounded-full flex items-center justify-center mb-3 shadow-lg">
+              <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <p class="font-bold text-gray-700 text-sm">Katie's Welcome Message</p>
+            <p class="text-xs text-gray-500 mt-1">Click to play video</p>
+          </div>
+        </div>
+      </div>
+      <!-- CTA -->
+      <div class="px-5 pb-5">
+        <button onclick="closeWelcome()"
+                class="w-full bg-[#E67272] hover:bg-[#d45f5f] text-white font-black py-3.5 rounded-full transition-colors shadow-md">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       EXCHANGE OIL MODAL
+  =================================================== -->
+  <div class="modal-overlay hidden" id="exchange-modal">
+    <div class="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <!-- Header -->
+      <div class="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between">
+        <h3 class="text-xl font-black text-gray-900">Oil Swap Policy</h3>
+        <button onclick="closeExchange()" class="text-gray-400 hover:text-gray-600 text-xl leading-none">✕</button>
+      </div>
+
+      <div class="p-6">
+        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+          Each box comes with oils specifically selected for the recipes and training provided, but we believe in giving you the ultimate customization experience and making each box uniquely yours!
+        </p>
+        <ul class="text-sm text-gray-600 mb-6 space-y-2 bg-gray-50 rounded-xl p-4">
+          <li>• Oil costs <strong>less, the same, and $2 more</strong> — oil swap is only <strong>$2 to swap!</strong></li>
+          <li>• Oil costs <strong>$2.01 more and up</strong> — you pay the difference in price, less a <strong>10% discount</strong> just for you.</li>
+        </ul>
+
+        <!-- Search -->
+        <div class="relative mb-5">
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" placeholder="Search oils..." class="w-full border border-gray-200 rounded-xl pl-10 pr-4 py-3 text-sm" />
+        </div>
+
+        <!-- Oil grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div class="border border-gray-200 rounded-xl p-3 text-center hover:border-[#2D6A6A] transition-colors cursor-pointer">
+            <div class="w-12 h-12 bg-gray-100 rounded-lg mx-auto mb-2 flex items-center justify-center text-xl">🌲</div>
+            <p class="text-xs font-semibold text-gray-800">Cedarwood Himalayan</p>
+            <p class="text-xs text-gray-400 mt-0.5">$12.99 (15mL)</p>
+            <button class="mt-2 w-full bg-[#2D6A6A] hover:bg-[#1f4f4f] text-white text-xs font-bold py-1.5 rounded-full transition-colors">Exchange Oil</button>
+          </div>
+          <div class="border border-gray-200 rounded-xl p-3 text-center hover:border-[#2D6A6A] transition-colors cursor-pointer">
+            <div class="w-12 h-12 bg-gray-100 rounded-lg mx-auto mb-2 flex items-center justify-center text-xl">🌸</div>
+            <p class="text-xs font-semibold text-gray-800">Lavender Essential Oil</p>
+            <p class="text-xs text-gray-400 mt-0.5">$11.99 (15mL)</p>
+            <button class="mt-2 w-full bg-[#2D6A6A] hover:bg-[#1f4f4f] text-white text-xs font-bold py-1.5 rounded-full transition-colors">Exchange Oil</button>
+          </div>
+          <div class="border border-gray-200 rounded-xl p-3 text-center hover:border-[#2D6A6A] transition-colors cursor-pointer">
+            <div class="w-12 h-12 bg-gray-100 rounded-lg mx-auto mb-2 flex items-center justify-center text-xl">🍋</div>
+            <p class="text-xs font-semibold text-gray-800">Lemon Essential Oil</p>
+            <p class="text-xs text-gray-400 mt-0.5">$9.99 (15mL)</p>
+            <button class="mt-2 w-full bg-[#2D6A6A] hover:bg-[#1f4f4f] text-white text-xs font-bold py-1.5 rounded-full transition-colors">Exchange Oil</button>
+          </div>
+          <div class="border border-gray-200 rounded-xl p-3 text-center hover:border-[#2D6A6A] transition-colors cursor-pointer">
+            <div class="w-12 h-12 bg-gray-100 rounded-lg mx-auto mb-2 flex items-center justify-center text-xl">🌿</div>
+            <p class="text-xs font-semibold text-gray-800">Peppermint Essential Oil</p>
+            <p class="text-xs text-gray-400 mt-0.5">$10.99 (15mL)</p>
+            <button class="mt-2 w-full bg-[#2D6A6A] hover:bg-[#1f4f4f] text-white text-xs font-bold py-1.5 rounded-full transition-colors">Exchange Oil</button>
+          </div>
+          <div class="border border-gray-200 rounded-xl p-3 text-center hover:border-[#2D6A6A] transition-colors cursor-pointer">
+            <div class="w-12 h-12 bg-gray-100 rounded-lg mx-auto mb-2 flex items-center justify-center text-xl">🌹</div>
+            <p class="text-xs font-semibold text-gray-800">Frankincense Essential Oil</p>
+            <p class="text-xs text-gray-400 mt-0.5">$14.99 (15mL)</p>
+            <button class="mt-2 w-full bg-[#2D6A6A] hover:bg-[#1f4f4f] text-white text-xs font-bold py-1.5 rounded-full transition-colors">Exchange Oil</button>
+          </div>
+          <div class="border border-gray-200 rounded-xl p-3 text-center hover:border-[#2D6A6A] transition-colors cursor-pointer">
+            <div class="w-12 h-12 bg-gray-100 rounded-lg mx-auto mb-2 flex items-center justify-center text-xl">🍊</div>
+            <p class="text-xs font-semibold text-gray-800">Sweet Orange Essential Oil</p>
+            <p class="text-xs text-gray-400 mt-0.5">$8.99 (15mL)</p>
+            <button class="mt-2 w-full bg-[#2D6A6A] hover:bg-[#1f4f4f] text-white text-xs font-bold py-1.5 rounded-full transition-colors">Exchange Oil</button>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-6 pt-4 border-t border-gray-100">
+          <button onclick="closeExchange()" class="border-2 border-gray-300 text-gray-500 hover:border-gray-400 font-bold px-6 py-2.5 rounded-full text-sm transition-colors">← Back</button>
+          <button onclick="closeExchange()" class="bg-[#E67272] hover:bg-[#d45f5f] text-white font-bold px-6 py-2.5 rounded-full text-sm transition-colors">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       HERO COURSE MODAL
+  =================================================== -->
+  <div class="modal-overlay hidden" id="hero-modal">
+    <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
+      <div class="px-6 pt-6 pb-4">
+        <h3 class="text-xl font-black text-gray-900 mb-5">Follow these steps:</h3>
+        <ol class="space-y-4 text-sm text-gray-600">
+          <li class="flex gap-3">
+            <span class="w-6 h-6 bg-[#E67272] text-white rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">1</span>
+            <span>Check your email notification for <strong>"Essential Oil Hero Course"</strong> (if you don't see the notification, check the spam folder).</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="w-6 h-6 bg-[#E67272] text-white rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">2</span>
+            <span>Open the email message and click <strong>"Access the Hero Course"</strong> button.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="w-6 h-6 bg-[#E67272] text-white rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">3</span>
+            <span>Enter your registered email address and enter the code sent to your email and click <strong>"Verify"</strong>.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="w-6 h-6 bg-[#E67272] text-white rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">4</span>
+            <span>On the welcome page click on <strong>"Continue"</strong> and start completing missions with your free access to our Essential Oils Hero Course!</span>
+          </li>
+        </ol>
+      </div>
+      <div class="px-6 pb-6">
+        <button onclick="closeHeroCourse()"
+                class="w-full bg-[#E67272] hover:bg-[#d45f5f] text-white font-black py-4 rounded-full transition-colors shadow-md">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       SCRIPTS
+  =================================================== -->
+  <script>
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    // Generate add-on sample items
+    const addons = [
+      { name: 'Cedarwood Himalayan', emoji: '🌲', price: '$10.99', original: '$12.99' },
+      { name: 'Lavender Essential Oil', emoji: '🌸', price: '$10.79', original: '$11.99' },
+      { name: 'Lemon Essential Oil', emoji: '🍋', price: '$8.99', original: '$9.99' },
+      { name: 'Peppermint Essential Oil', emoji: '🌿', price: '$9.89', original: '$10.99' },
+      { name: 'Frankincense Essential Oil', emoji: '🌹', price: '$13.49', original: '$14.99' },
+      { name: 'Sweet Orange', emoji: '🍊', price: '$8.09', original: '$8.99' },
+    ];
+
+    const grid = document.getElementById('addon-grid');
+    addons.forEach((a, i) => {
+      grid.innerHTML += `
+        <div class="addon-card" id="addon-${i}">
+          <div class="bg-gray-50 aspect-square flex items-center justify-center text-3xl">${a.emoji}</div>
+          <div class="p-3">
+            <p class="font-semibold text-xs text-gray-800 leading-tight mb-1">${a.name}</p>
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="text-xs text-gray-400 line-through">${a.original}</span>
+              <span class="text-xs bg-[#5E9F64]/10 text-[#5E9F64] px-1.5 py-0.5 rounded font-bold">Save ${calcSave(a.original, a.price)}</span>
+            </div>
+            <p class="text-sm font-black text-gray-900 mb-2">${a.price}</p>
+            <button onclick="toggleAddon(${i})" id="addon-btn-${i}" class="w-full bg-[#2D6A6A] hover:bg-[#1f4f4f] text-white text-xs font-bold py-2 rounded-lg transition-colors">Add</button>
+          </div>
+        </div>
+      `;
+    });
+
+    function calcSave(orig, price) {
+      const s = (parseFloat(orig.replace('$','')) - parseFloat(price.replace('$',''))).toFixed(2);
+      return `$${s}`;
+    }
+
+    function toggleAddon(i) {
+      const card = document.getElementById(`addon-${i}`);
+      const btn = document.getElementById(`addon-btn-${i}`);
+      if (btn.textContent.trim() === 'Add') {
+        btn.textContent = 'Added ✓';
+        btn.classList.remove('bg-[#2D6A6A]', 'hover:bg-[#1f4f4f]');
+        btn.classList.add('bg-[#5E9F64]', 'hover:bg-[#4a8a51]');
+        card.classList.add('added');
+      } else {
+        btn.textContent = 'Add';
+        btn.classList.add('bg-[#2D6A6A]', 'hover:bg-[#1f4f4f]');
+        btn.classList.remove('bg-[#5E9F64]', 'hover:bg-[#4a8a51]');
+        card.classList.remove('added');
+      }
+    }
+
+    // Progress bar update
+    function updateProgress(step) {
+      for (let i = 1; i <= totalSteps; i++) {
+        const circle = document.getElementById(`pc-${i}`);
+        const label = document.getElementById(`pl-${i}`);
+        circle.classList.remove('active', 'done');
+        label.classList.remove('active', 'done');
+
+        if (i < step) {
+          circle.classList.add('done');
+          circle.innerHTML = '✓';
+          label.classList.add('done');
+        } else if (i === step) {
+          circle.classList.add('active');
+          circle.textContent = i;
+          label.classList.add('active');
+        } else {
+          circle.textContent = i;
+        }
+
+        if (i < totalSteps) {
+          const line = document.getElementById(`pline-${i}`);
+          if (i < step) line.classList.add('done');
+          else line.classList.remove('done');
+        }
+      }
+    }
+
+    function goStep(n) {
+      document.getElementById(`step-${currentStep}`).classList.remove('active');
+      currentStep = n;
+      document.getElementById(`step-${currentStep}`).classList.add('active');
+      updateProgress(currentStep);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Modals
+    function closeWelcome() {
+      document.getElementById('welcome-modal').classList.add('hidden');
+    }
+    function openExchange() {
+      document.getElementById('exchange-modal').classList.remove('hidden');
+    }
+    function closeExchange() {
+      document.getElementById('exchange-modal').classList.add('hidden');
+    }
+    function openHeroCourse() {
+      document.getElementById('hero-modal').classList.remove('hidden');
+    }
+    function closeHeroCourse() {
+      document.getElementById('hero-modal').classList.add('hidden');
+      window.location.href = 'thank-you.html';
+    }
+
+    // Password toggle
+    function togglePw(id, btn) {
+      const input = document.getElementById(id);
+      if (input.type === 'password') {
+        input.type = 'text';
+      } else {
+        input.type = 'password';
+      }
+    }
+
+    // Show welcome modal on load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('welcome-modal').classList.remove('hidden');
+      }, 300);
+    });
+
+    updateProgress(1);
+  </script>
+</body>
+</html>

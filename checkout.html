@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout | Simply Earth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Brandon Text', 'Nunito', sans-serif; }
+    h1,h2,h3,h4 { font-family: 'Brandon Grotesque', 'Nunito', sans-serif; font-weight: 900; }
+
+    input, select {
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #E67272;
+      box-shadow: 0 0 0 3px rgba(230,114,114,.15);
+    }
+    .pulse-btn { animation: pulse-shadow 2.2s ease-in-out infinite; }
+    @keyframes pulse-shadow {
+      0%,100% { box-shadow: 0 0 0 0 rgba(230,114,114,.45); }
+      50%      { box-shadow: 0 0 0 14px rgba(230,114,114,0); }
+    }
+    .check-li { display:flex; align-items:flex-start; gap:8px; }
+    .check-li::before { content:'✓'; color:#5E9F64; font-weight:900; flex-shrink:0; margin-top:1px; }
+
+    /* Upsell banner animation */
+    @keyframes slideDown {
+      from { opacity:0; transform:translateY(-10px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .upsell-banner { animation: slideDown .4s ease; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- ===================================================
+       HEADER
+  =================================================== -->
+  <header class="bg-white border-b border-gray-200 py-4 px-6 sticky top-0 z-40 shadow-sm">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <a href="index.html">
+        <img src="https://simplyearth.com/images/simplyearth.svg" alt="Simply Earth" class="h-7" />
+      </a>
+      <div class="flex items-center gap-2 text-sm text-gray-500">
+        <svg class="w-4 h-4 text-[#5E9F64]" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+        </svg>
+        <span class="font-semibold">Secure Checkout</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================
+       PROGRESS BREADCRUMB
+  =================================================== -->
+  <div class="bg-white border-b border-gray-100 py-3 px-6">
+    <div class="max-w-5xl mx-auto flex items-center gap-2 text-xs text-gray-400 font-semibold">
+      <span class="text-[#E67272] font-bold">1. Information</span>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span>2. Review</span>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span>3. Confirmation</span>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       MAIN CHECKOUT LAYOUT
+  =================================================== -->
+  <main class="max-w-5xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-8">
+
+    <!-- ====== LEFT: FORM ====== -->
+    <div>
+
+      <!-- Contact Info -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <h2 class="text-xl font-black text-gray-900 mb-5">Contact Information</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">First Name *</label>
+            <input type="text" placeholder="Jane" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Last Name *</label>
+            <input type="text" placeholder="Doe" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Email Address *</label>
+            <input type="email" placeholder="jane@example.com" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Phone Number</label>
+            <input type="tel" placeholder="(555) 000-0000" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping Address -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <h2 class="text-xl font-black text-gray-900 mb-5">Shipping Address</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="sm:col-span-2">
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Street Address *</label>
+            <input type="text" placeholder="123 Main St" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Apartment, suite, etc. (optional)</label>
+            <input type="text" placeholder="Apt 2B" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">City *</label>
+            <input type="text" placeholder="Springfield" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">State *</label>
+            <select class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white">
+              <option value="">Select state...</option>
+              <option>Alabama</option><option>Alaska</option><option>Arizona</option>
+              <option>Arkansas</option><option>California</option><option>Colorado</option>
+              <option>Connecticut</option><option>Delaware</option><option>Florida</option>
+              <option>Georgia</option><option>Hawaii</option><option>Idaho</option>
+              <option>Illinois</option><option>Indiana</option><option>Iowa</option>
+              <option>Kansas</option><option>Kentucky</option><option>Louisiana</option>
+              <option>Maine</option><option>Maryland</option><option>Massachusetts</option>
+              <option>Michigan</option><option>Minnesota</option><option>Mississippi</option>
+              <option>Missouri</option><option>Montana</option><option>Nebraska</option>
+              <option>Nevada</option><option>New Hampshire</option><option>New Jersey</option>
+              <option>New Mexico</option><option>New York</option><option>North Carolina</option>
+              <option>North Dakota</option><option>Ohio</option><option>Oklahoma</option>
+              <option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option>
+              <option>South Carolina</option><option>South Dakota</option><option>Tennessee</option>
+              <option>Texas</option><option>Utah</option><option>Vermont</option>
+              <option>Virginia</option><option>Washington</option><option>West Virginia</option>
+              <option>Wisconsin</option><option>Wyoming</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">ZIP Code *</label>
+            <input type="text" placeholder="12345" class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1.5">Country *</label>
+            <select class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm bg-white">
+              <option>United States</option>
+              <option>Canada</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== LAST CHANCE UPSELL BANNER ====== -->
+      <div id="upsell-banner" class="upsell-banner bg-gradient-to-r from-[#FDF8F4] to-[#fef5ef] border-2 border-[#E67272] rounded-2xl p-6 mb-6" id="book-only-upsell">
+        <div class="flex items-start gap-4">
+          <div class="text-3xl flex-shrink-0">⚡</div>
+          <div class="flex-1">
+            <div class="inline-block bg-[#E67272] text-white text-xs font-bold px-3 py-1 rounded-full mb-2 uppercase tracking-wide">
+              Last Chance Offer
+            </div>
+            <h3 class="text-lg font-black text-gray-900 mb-1">Wait — Don't Miss This!</h3>
+            <p class="text-gray-600 text-sm mb-4 leading-relaxed">
+              Upgrade to the <strong>Recipe Box Subscription</strong> and we'll ship your free book with your first box — <span class="text-[#5E9F64] font-bold">completely free shipping</span> — plus get over <strong>$619 in bonuses</strong> including the Essential Oil Hero Course ($480 value), Big Bonus Box, Diffuser, and more!
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="bg-white border border-gray-200 text-xs text-gray-600 px-3 py-1 rounded-full font-semibold">✓ Hero Course ($480)</span>
+              <span class="bg-white border border-gray-200 text-xs text-gray-600 px-3 py-1 rounded-full font-semibold">✓ Big Bonus Box ($47.84)</span>
+              <span class="bg-white border border-gray-200 text-xs text-gray-600 px-3 py-1 rounded-full font-semibold">✓ Diffuser ($59.99)</span>
+              <span class="bg-white border border-gray-200 text-xs text-gray-600 px-3 py-1 rounded-full font-semibold">✓ FREE Shipping</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+              <button id="add-subscription-btn"
+                      onclick="addSubscription()"
+                      class="bg-[#E67272] hover:bg-[#d45f5f] text-white font-bold text-sm px-6 py-3 rounded-full transition-all pulse-btn shadow-md">
+                Yes! Add the Recipe Box — $35.99/mo →
+              </button>
+              <button onclick="dismissUpsell()" class="text-gray-400 text-xs hover:text-gray-600 underline">
+                No thanks, just the book
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Place Order Button -->
+      <button onclick="handleOrder()"
+              class="w-full bg-[#E67272] hover:bg-[#d45f5f] text-white font-black text-lg py-4 rounded-full shadow-xl pulse-btn transition-colors mb-4">
+        Place My Order →
+      </button>
+      <p class="text-center text-xs text-gray-400 mb-6">
+        🔒 Your information is 100% secure and encrypted. We never store payment information.
+      </p>
+
+      <!-- Back link -->
+      <div class="text-center">
+        <a href="index.html" class="text-sm text-[#E67272] hover:underline">← Back to offer page</a>
+      </div>
+
+    </div>
+
+    <!-- ====== RIGHT: ORDER SUMMARY ====== -->
+    <div class="lg:sticky lg:top-24 self-start">
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="bg-[#FDF8F4] px-6 py-4 border-b border-gray-100">
+          <h2 class="text-lg font-black text-gray-900">Order Summary</h2>
+        </div>
+
+        <div class="p-6">
+          <!-- Product row -->
+          <div class="flex gap-4 mb-5">
+            <img src="https://media.swipepages.com/2026/2/624601a11d02270010a16d6c/dsc00003--1--cover.webp"
+                 alt="Recipe Book" class="w-16 h-20 object-cover rounded-lg shadow-sm flex-shrink-0" />
+            <div class="flex-1">
+              <p class="font-bold text-gray-800 text-sm leading-tight">Essential Oil Recipe Book 2022 Edition</p>
+              <p class="text-xs text-gray-400 mt-1">+ Free Beginners Pamphlet</p>
+              <div class="flex items-center gap-2 mt-2">
+                <span class="text-xs text-gray-400 line-through">$29.99</span>
+                <span class="text-xs bg-[#5E9F64] text-white px-2 py-0.5 rounded-full font-bold">FREE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subscription row (hidden by default, shown if bundle) -->
+          <div id="subscription-row" class="hidden flex gap-4 mb-5 bg-[#E67272]/5 rounded-xl p-3 border border-[#E67272]/20">
+            <div class="w-10 h-10 bg-[#E67272] rounded-lg flex items-center justify-center flex-shrink-0 text-white font-bold text-xs text-center leading-tight">
+              📦<br/>Box
+            </div>
+            <div class="flex-1">
+              <p class="font-bold text-gray-800 text-sm">Recipe Box Subscription</p>
+              <p class="text-xs text-gray-400 mt-0.5">Monthly • Cancel anytime</p>
+              <p class="text-sm font-black text-[#E67272] mt-1">$35.99/mo</p>
+            </div>
+            <button onclick="removeSubscription()" class="text-gray-300 hover:text-red-400 text-xs">✕</button>
+          </div>
+
+          <div class="border-t border-gray-100 pt-4 space-y-2.5">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Subtotal</span>
+              <span class="font-semibold" id="subtotal">$0.00</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-500">Shipping</span>
+              <span class="font-semibold" id="shipping-cost">$7.85</span>
+            </div>
+            <div id="subscription-line" class="hidden flex justify-between text-sm">
+              <span class="text-gray-500">Subscription (1st month)</span>
+              <span class="font-semibold text-[#E67272]">$35.99</span>
+            </div>
+            <div class="flex justify-between border-t border-gray-200 pt-3 mt-2">
+              <span class="font-black text-gray-900">Total Today</span>
+              <span class="text-xl font-black text-gray-900" id="total">$7.85</span>
+            </div>
+          </div>
+
+          <!-- Guarantee -->
+          <div class="mt-5 bg-[#5E9F64]/10 rounded-xl p-4 text-center">
+            <div class="text-2xl mb-1">🛡️</div>
+            <p class="text-xs text-gray-600 font-semibold">100% Satisfaction Guarantee</p>
+            <p class="text-xs text-gray-400 mt-1">If you're not happy, we'll make it right.</p>
+          </div>
+
+          <!-- Trust logos -->
+          <div class="mt-4 flex items-center justify-center gap-3 opacity-60">
+            <span class="text-xs text-gray-400 font-semibold">🔒 Secure</span>
+            <span class="text-gray-200">|</span>
+            <span class="text-xs text-gray-400 font-semibold">✉️ Encrypted</span>
+            <span class="text-gray-200">|</span>
+            <span class="text-xs text-gray-400 font-semibold">🚚 Tracked</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===================================================
+       FOOTER
+  =================================================== -->
+  <footer class="bg-gray-900 text-gray-500 py-8 px-6 text-center text-xs">
+    <div class="max-w-4xl mx-auto">
+      <img src="https://simplyearth.com/images/simplyearth.svg" alt="Simply Earth" class="h-6 mx-auto mb-4 invert opacity-50" />
+      <p class="mb-2">© 2026 Simply Earth. All rights reserved.</p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href="https://simplyearth.com/policies/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="https://simplyearth.com/policies/terms-of-service" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="https://simplyearth.com/policies/refund-policy" class="hover:text-white transition-colors">Refund Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================
+       SCRIPTS
+  =================================================== -->
+  <script>
+    // Detect plan from URL params
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan') || 'book';
+    let hasSubscription = plan === 'bundle';
+
+    function updateSummary() {
+      const subRow = document.getElementById('subscription-row');
+      const subLine = document.getElementById('subscription-line');
+      const shippingEl = document.getElementById('shipping-cost');
+      const subtotalEl = document.getElementById('subtotal');
+      const totalEl = document.getElementById('total');
+      const upsellBanner = document.getElementById('upsell-banner');
+
+      if (hasSubscription) {
+        subRow.classList.remove('hidden');
+        subRow.classList.add('flex');
+        subLine.classList.remove('hidden');
+        subLine.classList.add('flex');
+        shippingEl.textContent = 'FREE';
+        shippingEl.classList.add('text-[#5E9F64]', 'font-bold');
+        subtotalEl.textContent = '$35.99';
+        totalEl.textContent = '$35.99';
+        if (upsellBanner) upsellBanner.classList.add('hidden');
+      } else {
+        subRow.classList.add('hidden');
+        subRow.classList.remove('flex');
+        subLine.classList.add('hidden');
+        subLine.classList.remove('flex');
+        shippingEl.textContent = '$7.85';
+        shippingEl.classList.remove('text-[#5E9F64]', 'font-bold');
+        subtotalEl.textContent = '$0.00';
+        totalEl.textContent = '$7.85';
+      }
+    }
+
+    function addSubscription() {
+      hasSubscription = true;
+      updateSummary();
+      document.getElementById('upsell-banner').innerHTML = `
+        <div class="flex items-center gap-3 text-[#5E9F64]">
+          <svg class="w-6 h-6 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <div>
+            <p class="font-black text-gray-900">Recipe Box Subscription Added! 🎉</p>
+            <p class="text-sm text-gray-500 mt-0.5">You'll get your free book + over $619 in bonuses with your first box!</p>
+          </div>
+        </div>
+      `;
+      document.getElementById('upsell-banner').classList.remove('border-[#E67272]');
+      document.getElementById('upsell-banner').classList.add('border-[#5E9F64]', 'bg-[#5E9F64]/5');
+    }
+
+    function removeSubscription() {
+      hasSubscription = false;
+      updateSummary();
+    }
+
+    function dismissUpsell() {
+      document.getElementById('upsell-banner').classList.add('hidden');
+    }
+
+    function handleOrder() {
+      // Front-end only — redirect to onboarding
+      if (hasSubscription) {
+        window.location.href = 'onboarding.html';
+      } else {
+        window.location.href = 'thank-you.html';
+      }
+    }
+
+    // Init
+    updateSummary();
+
+    // Hide upsell banner if already on bundle plan
+    if (hasSubscription) {
+      const banner = document.getElementById('upsell-banner');
+      if (banner) banner.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

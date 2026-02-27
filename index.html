@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FREE Essential Oil Recipe Book | Simply Earth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'se-rose':     '#E67272',
+            'se-rose-d':   '#d45f5f',
+            'se-sage':     '#5E9F64',
+            'se-blue':     '#70A8BE',
+            'se-gold':     '#DDBC59',
+            'se-teal':     '#2D6A6A',
+            'se-cream':    '#FDF8F4',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Brandon Text', 'Nunito', sans-serif; }
+    h1,h2,h3,h4,h5 { font-family: 'Brandon Grotesque', 'Nunito', sans-serif; font-weight: 900; }
+
+    /* Countdown digit boxes */
+    .cd-box {
+      background: rgba(255,255,255,0.25);
+      border-radius: 8px;
+      padding: 4px 14px;
+      font-weight: 900;
+      font-size: 1.6rem;
+      min-width: 56px;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+
+    /* Offer card hover lift */
+    .offer-card { transition: transform .3s ease, box-shadow .3s ease; }
+    .offer-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,.12); }
+
+    /* Pulsing CTA */
+    .pulse-btn { animation: pulse-shadow 2.2s ease-in-out infinite; }
+    @keyframes pulse-shadow {
+      0%,100% { box-shadow: 0 0 0 0 rgba(230,114,114,.45); }
+      50%      { box-shadow: 0 0 0 14px rgba(230,114,114,0); }
+    }
+
+    /* Floating book */
+    .book-float { animation: float 3.5s ease-in-out infinite; }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+
+    /* Check list */
+    .check-li { display:flex; align-items:flex-start; gap:10px; }
+    .check-li::before { content:'✓'; color:#5E9F64; font-weight:900; flex-shrink:0; margin-top:1px; }
+
+    /* FAQ accordion */
+    .faq-answer { max-height:0; overflow:hidden; transition: max-height .35s ease; }
+    .faq-item.open .faq-answer { max-height:300px; }
+    .faq-item.open .faq-icon { transform:rotate(180deg); }
+    .faq-icon { transition: transform .3s ease; }
+
+    /* Gold value badge */
+    .value-badge {
+      background: linear-gradient(135deg, #DDBC59, #f0d07a);
+    }
+
+    /* Sticky urgency bar on scroll */
+    #urgency-bar { position: sticky; top:0; z-index:50; }
+  </style>
+</head>
+<body class="bg-white text-gray-800 overflow-x-hidden">
+
+  <!-- ===================================================
+       URGENCY BAR — sticky countdown
+  =================================================== -->
+  <div id="urgency-bar" class="bg-[#E67272] text-white py-3 px-4 text-center shadow-sm">
+    <div class="flex items-center justify-center gap-2 md:gap-4 flex-wrap text-sm md:text-base">
+      <span class="font-semibold">⏰ This FREE offer expires in:</span>
+      <div class="flex items-center gap-1.5">
+        <span class="cd-box" id="cd-mins">15</span>
+        <span class="font-black text-2xl leading-none">:</span>
+        <span class="cd-box" id="cd-secs">00</span>
+      </div>
+      <span class="font-semibold hidden md:inline">Don't miss out!</span>
+    </div>
+  </div>
+
+  <!-- ===================================================
+       HEADER
+  =================================================== -->
+  <header class="bg-white border-b border-gray-100 py-4 px-6">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <a href="https://simplyearth.com">
+        <img src="https://simplyearth.com/images/simplyearth.svg" alt="Simply Earth" class="h-7 md:h-8" />
+      </a>
+      <div class="flex items-center gap-4 text-xs md:text-sm text-gray-500">
+        <span class="flex items-center gap-1">
+          <svg class="w-4 h-4 text-[#5E9F64]" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+          </svg>
+          Secure Checkout
+        </span>
+        <span class="flex items-center gap-1 hidden sm:flex">
+          <svg class="w-4 h-4 text-[#5E9F64]" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          100% Satisfaction Guaranteed
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================
+       HERO SECTION
+  =================================================== -->
+  <section class="bg-[#FDF8F4] py-14 md:py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+
+        <!-- LEFT: Copy -->
+        <div class="flex-1 text-center lg:text-left order-2 lg:order-1">
+          <div class="inline-flex items-center gap-2 bg-[#5E9F64]/10 text-[#5E9F64] text-sm font-bold px-4 py-2 rounded-full mb-5 border border-[#5E9F64]/20">
+            🌿 Limited Time Offer
+          </div>
+
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 leading-tight mb-5">
+            Grab Your <span class="text-[#E67272]">FREE</span><br />
+            Essential Oil<br />Recipe Book
+          </h1>
+
+          <p class="text-lg md:text-xl text-gray-600 mb-5 leading-relaxed">
+            60+ step-by-step recipes to make <strong>natural, toxin-free products</strong> at home —
+            ditching overpriced oils for good.
+            <span class="text-[#E67272] font-bold">Just pay $7.85 shipping.</span>
+          </p>
+
+          <!-- Star rating -->
+          <div class="flex items-center gap-2 justify-center lg:justify-start mb-5">
+            <span class="text-[#DDBC59] text-xl">⭐⭐⭐⭐⭐</span>
+            <span class="font-bold text-gray-800">50,000+ Five-Star Reviews</span>
+          </div>
+
+          <!-- Trust badges -->
+          <div class="flex flex-wrap gap-2 justify-center lg:justify-start mb-8">
+            <span class="bg-white border border-gray-200 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 shadow-sm">🌱 100% Pure Ingredients</span>
+            <span class="bg-white border border-gray-200 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 shadow-sm">🐾 Pet &amp; Pregnancy Safe</span>
+            <span class="bg-white border border-gray-200 rounded-full px-3 py-1.5 text-xs font-semibold text-gray-600 shadow-sm">❤️ 13% Fights Trafficking</span>
+          </div>
+
+          <a href="#choose-offer"
+             class="inline-block bg-[#E67272] hover:bg-[#d45f5f] text-white font-black text-lg px-10 py-4 rounded-full shadow-xl pulse-btn transition-colors">
+            Claim My Free Book →
+          </a>
+          <p class="text-xs text-gray-400 mt-3">No credit card required for book only • Just $7.85 shipping</p>
+        </div>
+
+        <!-- RIGHT: Book display -->
+        <div class="flex-1 order-1 lg:order-2 flex justify-center">
+          <div class="relative w-64 md:w-80">
+            <!-- Value badge -->
+            <div class="absolute -top-5 -right-5 z-20 value-badge w-20 h-20 rounded-full flex items-center justify-center shadow-xl text-white font-black text-center leading-tight">
+              <div>
+                <div class="text-xs">VALUE</div>
+                <div class="text-lg">$29</div>
+                <div class="text-xs">FREE!</div>
+              </div>
+            </div>
+            <!-- Main book -->
+            <img src="https://media.swipepages.com/2026/2/624601a11d02270010a16d6c/dsc00003--1--cover.webp"
+                 alt="Essential Oil Recipe Book 2022 Edition"
+                 class="w-full rounded-2xl shadow-2xl relative z-10 book-float" />
+            <!-- Back book -->
+            <img src="https://media.swipepages.com/2026/2/624601a11d02270010a16d6c/dsc00004--1--cover.webp"
+                 alt="Recipe Book Pages"
+                 class="absolute -bottom-5 -right-8 w-56 rounded-xl shadow-lg opacity-50 z-0 rotate-6" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       CHOOSE YOUR OFFER
+  =================================================== -->
+  <section id="choose-offer" class="py-16 md:py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">Choose Your Path to Natural Living</h2>
+        <p class="text-gray-500 text-lg">Pick the option that works best for you</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+
+        <!-- Option A: Free Book Only -->
+        <div class="offer-card bg-white border-2 border-gray-200 rounded-3xl p-8 flex flex-col">
+          <h3 class="text-2xl font-black text-gray-800 mb-1">Just the Free Book</h3>
+          <p class="text-gray-400 text-sm mb-6">A great way to get started</p>
+
+          <img src="https://media.swipepages.com/2026/2/624601a11d02270010a16d6c/dsc00003--1--cover.webp"
+               alt="Recipe Book" class="w-40 mx-auto rounded-xl shadow-lg mb-6" />
+
+          <ul class="flex-1 space-y-3 mb-6 text-sm text-gray-600">
+            <li class="check-li"><span>Essential Oil Recipe Book 2022 Edition</span></li>
+            <li class="check-li"><span>Free Essential Oil Beginners Pamphlet</span></li>
+            <li class="check-li"><span>60+ step-by-step DIY recipes</span></li>
+          </ul>
+
+          <div class="bg-gray-50 rounded-xl p-4 mb-6">
+            <div class="flex justify-between text-sm mb-1.5">
+              <span class="text-gray-400">Book Value</span>
+              <span class="text-gray-400 line-through">$29.99</span>
+            </div>
+            <div class="flex justify-between text-sm mb-3">
+              <span class="text-gray-500">Shipping &amp; Handling</span>
+              <span class="font-semibold">$7.85</span>
+            </div>
+            <div class="flex justify-between border-t border-gray-200 pt-3">
+              <span class="font-bold text-gray-900">You Pay Today</span>
+              <span class="text-2xl font-black text-gray-900">$7.85</span>
+            </div>
+          </div>
+
+          <a href="checkout.html?plan=book"
+             class="block text-center border-2 border-[#E67272] text-[#E67272] hover:bg-[#E67272] hover:text-white font-bold py-3.5 rounded-full transition-all text-base">
+            Get My Free Book
+          </a>
+        </div>
+
+        <!-- Option B: Bundle — BEST VALUE -->
+        <div class="offer-card border-2 border-[#E67272] rounded-3xl flex flex-col relative overflow-hidden shadow-2xl bg-white">
+          <!-- Banner -->
+          <div class="bg-[#E67272] text-white text-center py-3 font-black tracking-wide text-sm uppercase">
+            🌟 Most Popular — Best Value
+          </div>
+
+          <div class="p-8 flex flex-col flex-1">
+            <h3 class="text-2xl font-black text-gray-800 mb-1">Free Book + Recipe Box</h3>
+            <p class="text-gray-400 text-sm mb-5">The complete natural living starter kit</p>
+
+            <!-- Bonuses block -->
+            <div class="bg-[#E67272]/5 border border-[#E67272]/20 rounded-2xl p-5 mb-5 flex-1">
+              <div class="text-center text-[#E67272] font-black text-xs uppercase tracking-widest mb-4">
+                🎁 Everything You Get — Over $619 in Value!
+              </div>
+              <ul class="space-y-2.5 text-sm text-gray-700">
+                <li class="check-li"><span><strong>Essential Oil Recipe Book</strong> <span class="text-gray-400">($29.99)</span></span></li>
+                <li class="check-li"><span><strong>Monthly Recipe Box</strong> — 5–6 oils + 8 recipes</span></li>
+                <li class="check-li"><span><strong>Big Bonus Box</strong> <span class="text-gray-400">($47.84)</span></span></li>
+                <li class="check-li"><span><strong>Essential Oil Hero Course</strong> <span class="text-gray-400">($480 value)</span></span></li>
+                <li class="check-li"><span><strong>Misty Essential Oil Diffuser</strong> <span class="text-gray-400">($59.99)</span></span></li>
+                <li class="check-li"><span><strong>Round Soap Mold</strong> <span class="text-gray-400">($1.99)</span></span></li>
+                <li class="check-li"><span>Free Essential Oil Beginners Pamphlet</span></li>
+                <li class="check-li"><span class="text-[#5E9F64] font-bold">FREE Shipping (save $7.85)</span></li>
+              </ul>
+            </div>
+
+            <!-- Pricing -->
+            <div class="bg-gray-50 rounded-xl p-4 mb-6">
+              <div class="flex justify-between text-sm mb-1.5">
+                <span class="text-gray-400">Total Bonus Value</span>
+                <span class="text-gray-400 line-through">$619+</span>
+              </div>
+              <div class="flex justify-between text-sm mb-3">
+                <span class="text-gray-400">Shipping</span>
+                <span class="text-[#5E9F64] font-bold">FREE</span>
+              </div>
+              <div class="flex justify-between border-t border-gray-200 pt-3">
+                <div>
+                  <span class="font-bold text-gray-900">Monthly Price</span>
+                  <p class="text-xs text-gray-400 mt-0.5">Cancel or pause anytime</p>
+                </div>
+                <div class="text-right">
+                  <span class="text-3xl font-black text-[#E67272]">$35.99</span>
+                  <span class="text-gray-400 text-sm">/mo</span>
+                </div>
+              </div>
+            </div>
+
+            <a href="checkout.html?plan=bundle"
+               class="block text-center bg-[#E67272] hover:bg-[#d45f5f] text-white font-black text-lg py-4 rounded-full transition-all shadow-xl pulse-btn">
+              Get Book + Subscribe Now →
+            </a>
+            <p class="text-center text-xs text-gray-400 mt-3">No long-term contract • Cancel anytime</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       HOW IT WORKS
+  =================================================== -->
+  <section class="bg-[#FDF8F4] py-16 md:py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">How It Works</h2>
+      <p class="text-gray-500 mb-12">Getting started is simple and fun</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 bg-[#E67272] text-white rounded-full flex items-center justify-center text-2xl font-black mb-5 shadow-lg">1</div>
+          <h3 class="font-black text-xl mb-2 text-gray-900">Claim Your Offer</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Choose the free book or bundle it with our monthly Recipe Box subscription</p>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 bg-[#E67272] text-white rounded-full flex items-center justify-center text-2xl font-black mb-5 shadow-lg">2</div>
+          <h3 class="font-black text-xl mb-2 text-gray-900">Receive Your Goodies</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">We ship everything straight to your door — your book and monthly box of curated ingredients</p>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 bg-[#E67272] text-white rounded-full flex items-center justify-center text-2xl font-black mb-5 shadow-lg">3</div>
+          <h3 class="font-black text-xl mb-2 text-gray-900">Start Creating!</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Follow easy recipes and start making natural, toxin-free products your whole family will love</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       SOCIAL PROOF
+  =================================================== -->
+  <section class="py-16 md:py-20 px-6 bg-white">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="text-4xl mb-4">⭐⭐⭐⭐⭐</div>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">Loved by 50,000+ Natural Living Families</h2>
+      <p class="text-gray-500 mb-12">Real people. Real results. Real simple.</p>
+
+      <div class="max-w-lg mx-auto">
+        <div class="bg-[#FDF8F4] border border-[#E67272]/20 rounded-3xl p-8 shadow-sm text-left">
+          <div class="text-[#DDBC59] text-xl mb-4">⭐⭐⭐⭐⭐</div>
+          <p class="text-gray-700 italic mb-6 leading-relaxed">
+            "Just started and I am so grateful for all the info. I think the best thing so far is the proper uses for oils and safety info. I just want to say thank you for putting this info together in a format that is understandable and relatable."
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://media.swipepages.com/2022/6/624601a11d02270010a16d6c/andrea-sage-150.webp"
+                 alt="Ana S." class="w-12 h-12 rounded-full object-cover border-2 border-[#E67272]" />
+            <div>
+              <div class="font-bold text-gray-900">Ana S.</div>
+              <div class="text-[#5E9F64] text-sm font-semibold">✓ Verified Buyer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       FAQ
+  =================================================== -->
+  <section class="bg-[#FDF8F4] py-16 md:py-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 text-center mb-12">Frequently Asked Questions</h2>
+
+      <div class="space-y-3" id="faq-list">
+
+        <div class="faq-item bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left font-bold text-gray-800 hover:bg-gray-50 transition-colors">
+            <span>Is the recipe book really free?</span>
+            <svg class="faq-icon w-5 h-5 text-[#E67272] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-gray-500 text-sm leading-relaxed">Yes! The Essential Oil Recipe Book 2022 Edition (valued at $29.99) is completely free. You just pay $7.85 for shipping. No tricks, no hidden fees. Or bundle it with the Recipe Box subscription and get free shipping too!</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left font-bold text-gray-800 hover:bg-gray-50 transition-colors">
+            <span>What is the Recipe Box subscription?</span>
+            <svg class="faq-icon w-5 h-5 text-[#E67272] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-gray-500 text-sm leading-relaxed">Each month you receive a themed box with 5–6 therapeutic-grade essential oils, 8 step-by-step recipes, and all the specialty ingredients you need — like cleaning supplies, skincare, candles, and more. Just $35.99/month with free shipping.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left font-bold text-gray-800 hover:bg-gray-50 transition-colors">
+            <span>What's in the Big Bonus Box?</span>
+            <svg class="faq-icon w-5 h-5 text-[#E67272] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-gray-500 text-sm leading-relaxed">Your first month includes a Big Bonus Box ($47.84 value) packed with extra goodies — including the Misty Essential Oil Diffuser ($59.99), Round Soap Mold ($1.99), and access to the Essential Oil Hero Course ($480 value)!</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left font-bold text-gray-800 hover:bg-gray-50 transition-colors">
+            <span>Can I cancel anytime?</span>
+            <svg class="faq-icon w-5 h-5 text-[#E67272] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-gray-500 text-sm leading-relaxed">Absolutely! You can cancel, pause, or modify your subscription anytime — no questions asked. We're confident you'll love it, but we never want you to feel locked in.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left font-bold text-gray-800 hover:bg-gray-50 transition-colors">
+            <span>Are the oils safe for kids and pets?</span>
+            <svg class="faq-icon w-5 h-5 text-[#E67272] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-gray-500 text-sm leading-relaxed">Simply Earth's essential oils are 100% pure and therapeutic-grade. Many are pregnancy and pet safe, and the recipe book provides clear safety guidance for your whole family.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left font-bold text-gray-800 hover:bg-gray-50 transition-colors">
+            <span>How is Simply Earth different from Young Living or doTERRA?</span>
+            <svg class="faq-icon w-5 h-5 text-[#E67272] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div class="faq-answer px-6 pb-5">
+            <p class="text-gray-500 text-sm leading-relaxed">Simply Earth offers the same therapeutic-grade quality without the MLM markup or pressure. No recruiter. No starter kit fees. Just premium oils at honest prices — and 13% of profits go to fight human trafficking.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       FINAL CTA
+  =================================================== -->
+  <section class="bg-[#E67272] py-16 md:py-20 px-6 text-white text-center">
+    <div class="max-w-2xl mx-auto">
+      <div class="text-5xl mb-6">🌿</div>
+      <h2 class="text-3xl md:text-4xl font-black mb-4">Ready to Ditch Toxic Products?</h2>
+      <p class="text-white/80 text-lg mb-8">Join 50,000+ families who've discovered the joy of making natural products at home.</p>
+      <a href="#choose-offer"
+         class="inline-block bg-white text-[#E67272] font-black text-lg px-10 py-4 rounded-full hover:bg-gray-50 transition-all shadow-xl">
+        Claim My Free Book Now →
+      </a>
+      <p class="text-white/60 text-xs mt-4">Offer expires when timer reaches zero. Act now!</p>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       FOOTER
+  =================================================== -->
+  <footer class="bg-gray-900 text-gray-400 py-10 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <img src="https://simplyearth.com/images/simplyearth.svg" alt="Simply Earth" class="h-7 mx-auto mb-5 invert opacity-60" />
+      <p class="text-sm mb-3">❤️ 13% of our profits fight human trafficking. Thank you for being part of the mission.</p>
+      <p class="text-xs text-gray-600 mb-3">© 2026 Simply Earth. All rights reserved.</p>
+      <div class="flex gap-4 justify-center text-xs flex-wrap">
+        <a href="https://simplyearth.com/policies/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="https://simplyearth.com/policies/terms-of-service" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="https://simplyearth.com/policies/refund-policy" class="hover:text-white transition-colors">Refund Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================
+       SCRIPTS
+  =================================================== -->
+  <script>
+    // --- Countdown Timer ---
+    (function () {
+      let total = 15 * 60;
+      const mEl = document.getElementById('cd-mins');
+      const sEl = document.getElementById('cd-secs');
+
+      function tick() {
+        const m = Math.floor(total / 60);
+        const s = total % 60;
+        mEl.textContent = String(m).padStart(2, '0');
+        sEl.textContent = String(s).padStart(2, '0');
+        if (total-- <= 0) {
+          clearInterval(id);
+          document.getElementById('urgency-bar').innerHTML =
+            '<p class="text-white text-sm font-semibold text-center py-3">⚠️ Offer has expired! Subscribe now to still receive your free book.</p>';
+        }
+      }
+      tick();
+      const id = setInterval(tick, 1000);
+    })();
+
+    // --- FAQ Accordion ---
+    document.querySelectorAll('.faq-toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>
