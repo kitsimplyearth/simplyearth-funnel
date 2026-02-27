@@ -62,10 +62,18 @@
     .check-li { display:flex; align-items:flex-start; gap:10px; }
     .check-li::before { content:'✓'; color:#5E9F64; font-weight:900; flex-shrink:0; margin-top:1px; }
 
-    /* FAQ accordion */
-    .faq-answer { max-height:0; overflow:hidden; transition: max-height .35s ease; }
-    .faq-item.open .faq-answer { max-height:300px; }
-    .faq-item.open .faq-icon { transform:rotate(180deg); }
+    /* FAQ accordion — padding-bottom is controlled separately to prevent bleed-through */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      padding-bottom: 0 !important;
+      transition: max-height .4s ease, padding-bottom .4s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 500px;
+      padding-bottom: 1.25rem !important;
+    }
+    .faq-item.open .faq-icon { transform: rotate(180deg); }
     .faq-icon { transition: transform .3s ease; }
 
     /* Gold value badge */
@@ -140,7 +148,7 @@
           <p class="text-lg md:text-xl text-gray-600 mb-5 leading-relaxed">
             60+ step-by-step recipes to make <strong>natural, toxin-free products</strong> at home —
             ditching overpriced oils for good.
-            <span class="text-[#E67272] font-bold">Just pay $7.85 shipping.</span>
+            <span class="text-[#E67272] font-bold">Just pay $7.95 shipping.</span>
           </p>
 
           <!-- Star rating -->
@@ -160,7 +168,7 @@
              class="inline-block bg-[#E67272] hover:bg-[#d45f5f] text-white font-black text-lg px-10 py-4 rounded-full shadow-xl pulse-btn transition-colors">
             Claim My Free Book →
           </a>
-          <p class="text-xs text-gray-400 mt-3">No credit card required for book only • Just $7.85 shipping</p>
+          <p class="text-xs text-gray-400 mt-3">No credit card required for book only • Just $7.95 shipping</p>
         </div>
 
         <!-- RIGHT: Book display -->
@@ -222,16 +230,16 @@
             </div>
             <div class="flex justify-between text-sm mb-3">
               <span class="text-gray-500">Shipping &amp; Handling</span>
-              <span class="font-semibold">$7.85</span>
+              <span class="font-semibold">$7.95</span>
             </div>
             <div class="flex justify-between border-t border-gray-200 pt-3">
               <span class="font-bold text-gray-900">You Pay Today</span>
-              <span class="text-2xl font-black text-gray-900">$7.85</span>
+              <span class="text-2xl font-black text-gray-900">$7.95</span>
             </div>
           </div>
 
           <a href="checkout.html?plan=book"
-             class="block text-center border-2 border-[#E67272] text-[#E67272] hover:bg-[#E67272] hover:text-white font-bold py-3.5 rounded-full transition-all text-base">
+             class="block text-center bg-[#E67272] hover:bg-[#d45f5f] text-white font-bold py-3.5 rounded-full transition-all text-base shadow-md">
             Get My Free Book
           </a>
         </div>
@@ -260,7 +268,7 @@
                 <li class="check-li"><span><strong>Misty Essential Oil Diffuser</strong> <span class="text-gray-400">($59.99)</span></span></li>
                 <li class="check-li"><span><strong>Round Soap Mold</strong> <span class="text-gray-400">($1.99)</span></span></li>
                 <li class="check-li"><span>Free Essential Oil Beginners Pamphlet</span></li>
-                <li class="check-li"><span class="text-[#5E9F64] font-bold">FREE Shipping (save $7.85)</span></li>
+                <li class="check-li"><span class="text-[#5E9F64] font-bold">FREE Shipping (save $7.95)</span></li>
               </ul>
             </div>
 
@@ -371,7 +379,7 @@
             </svg>
           </button>
           <div class="faq-answer px-6 pb-5">
-            <p class="text-gray-500 text-sm leading-relaxed">Yes! The Essential Oil Recipe Book 2022 Edition (valued at $29.99) is completely free. You just pay $7.85 for shipping. No tricks, no hidden fees. Or bundle it with the Recipe Box subscription and get free shipping too!</p>
+            <p class="text-gray-500 text-sm leading-relaxed">Yes! The Essential Oil Recipe Book 2022 Edition (valued at $29.99) is completely free. You just pay $7.95 for shipping. No tricks, no hidden fees. Or bundle it with the Recipe Box subscription and get free shipping too!</p>
           </div>
         </div>
 
@@ -500,9 +508,20 @@
     document.querySelectorAll('.faq-toggle').forEach(btn => {
       btn.addEventListener('click', () => {
         const item = btn.closest('.faq-item');
+        const answer = item.querySelector('.faq-answer');
         const isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-        if (!isOpen) item.classList.add('open');
+
+        // Close all items
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-answer').style.maxHeight = '0';
+        });
+
+        // If it wasn't open, open it using its real scroll height
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 24 + 'px';
+        }
       });
     });
   </script>
